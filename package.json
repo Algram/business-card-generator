@@ -1,0 +1,26 @@
+{
+  "name": "business-card-generator",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "pdfkit": "^0.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.12.2",
+    "eslint-config-airbnb-base": "^11.0.0",
+    "eslint-plugin-import": "^2.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Algram/business-card-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Algram/business-card-generator/issues"
+  },
+  "homepage": "https://github.com/Algram/business-card-generator#readme"
+}
