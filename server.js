@@ -1,17 +1,30 @@
+const path = require('path');
 const Hapi = require('hapi');
+const Inert = require('inert');
 
 // Create a server with a host and port
-const server = new Hapi.Server();
+const server = new Hapi.Server({
+  connections: {
+    routes: {
+      files: {
+        relativeTo: path.join(__dirname, 'public')
+      }
+    }
+  }
+});
+
 server.connection({
   host: 'localhost',
   port: 8000
 });
 
+server.register(Inert, () => {});
+
 // Add the route
 server.route({
   method: 'GET',
-  path: '/hello',
-  handler: (request, reply) => reply('hello world')
+  path: '/',
+  handler: (request, reply) => reply.file('index.html')
 });
 
 server.route({
