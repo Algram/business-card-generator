@@ -23,15 +23,21 @@ server.register(Inert, () => {});
 // Add the route
 server.route({
   method: 'GET',
-  path: '/',
-  handler: (request, reply) => reply.file('index.html')
+  path: '/{path*}',
+  handler: {
+    directory: {
+      path: '.',
+      listing: false,
+      index: true
+    }
+  }
 });
 
 server.route({
   method: 'POST',
   path: '/generate',
   handler: (request, reply) => {
-    const data = request.payload.url;
+    const data = request.payload.test;
     console.log(data);
 
     reply('aasdasd');
