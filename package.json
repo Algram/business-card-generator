@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
+    "hapi": "^16.1.0",
     "pdfkit": "^0.8.0"
   },
   "devDependencies": {
