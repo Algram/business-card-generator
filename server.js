@@ -1,6 +1,7 @@
 const path = require('path');
 const Hapi = require('hapi');
 const Inert = require('inert');
+const pdf = require('./pdf.js');
 
 // Create a server with a host and port
 const server = new Hapi.Server({
@@ -37,10 +38,10 @@ server.route({
   method: 'POST',
   path: '/generate',
   handler: (request, reply) => {
-    const data = request.payload.test;
-    console.log(data);
+    const data = request.payload;
+    pdf.generate(data);
 
-    reply('aasdasd');
+    reply();
   }
 });
 
