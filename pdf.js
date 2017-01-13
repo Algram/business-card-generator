@@ -1,7 +1,8 @@
 const fs = require('fs');
+const request = require('request').defaults({ encoding: null });
 const PDFDocument = require('pdfkit');
 
-function generate(data) {
+function generate(data, cb) {
   const doc = new PDFDocument({
     layout: 'landscape',
     size: [200, 350]
@@ -16,9 +17,16 @@ function generate(data) {
     .text(data.test)
     .text(new Date().toLocaleString());
 
-  doc.pipe(fs.createWriteStream('public/output.pdf'));
+  doc.addPage();
 
-  doc.end();
+  request(`https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${data.test}`, (err, response, buffer) => {
+    console.log('asdasd', typeof buffer);
+    doc.image(new Buffer(buffer));
+    doc.end();
+    cb();
+  });
+
+  doc.pipe(fs.createWriteStream('public/output.pdf'));
 }
 
 module.exports = {

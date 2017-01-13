@@ -39,9 +39,7 @@ server.route({
   path: '/generate',
   handler: (request, reply) => {
     const data = request.payload;
-    pdf.generate(data);
-
-    reply();
+    pdf.generate(data, () => reply());
   }
 });
 
