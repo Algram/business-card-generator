@@ -5,7 +5,7 @@ const PDFDocument = require('pdfkit');
 function generate(data, cb) {
   const doc = new PDFDocument({
     layout: 'landscape',
-    size: [200, 350]
+    size: [156, 241]
   });
 
   const page = doc.page;
@@ -19,9 +19,8 @@ function generate(data, cb) {
 
   doc.addPage();
 
-  request(`https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${data.test}`, (err, response, buffer) => {
-    console.log('asdasd', typeof buffer);
-    doc.image(new Buffer(buffer));
+  request(`https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=${data.test}`, (err, response, buffer) => {
+    doc.image(buffer, 0, 0, { width: 150 });
     doc.end();
     cb();
   });
