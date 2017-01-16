@@ -31,7 +31,7 @@ function generate(data, cb) {
     cb();
   });
 
-  doc.pipe(fs.createWriteStream('public/output.pdf'));
+  doc.pipe(fs.createWriteStream('public/businesscard.pdf'));
 }
 
 module.exports = {

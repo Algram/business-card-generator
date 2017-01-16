@@ -18,7 +18,7 @@ $( document ).ready(function() {
 function sendToServer(data) {
   $.post( "/generate", data, function( data ) {
     console.log(data);
-    $('#pdfView').attr('src', "output.pdf");
+    $('#pdfView').attr('src', 'businesscard.pdf');
   });
 }
 
