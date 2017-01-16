@@ -16,9 +16,9 @@ function generate(data, cb) {
   doc.rect(0, 0, page.width, page.height)
     .fill('#111111');
 
-  doc.fillColor('red')
-    .text(data.test)
-    .text(new Date().toLocaleString());
+  doc.fillColor('#ffffff')
+    .text(data.name)
+    .text(data.phone);
 
   doc.addPage();
   page = doc.page;
@@ -26,7 +26,7 @@ function generate(data, cb) {
   page.dictionary.data.BleedBox = [0, 0, 257.95296, 172.91304];
 
   request(`https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=${data.test}`, (err, response, buffer) => {
-    doc.image(buffer, 0, 0, { width: 80 });
+    doc.image(buffer, (doc.page.width - 80) / 2, (doc.page.height - 80) / 2, { width: 80 });
     doc.end();
     cb();
   });

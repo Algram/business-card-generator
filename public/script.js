@@ -1,10 +1,12 @@
 /* eslint-disable */
 $( document ).ready(function() {
   var typingTimer;
-  $('#dataInput').on('change keydown paste input', function(){
-    var input = $('#dataInput').val();
+  $('input').on('change keydown paste input', function(){
+    var INPUT_NAME = $('input[name=name]').val();
+    var INPUT_PHONE = $('input[name=phone]').val();
     var data = {
-      test: input
+      name: INPUT_NAME,
+      phone: INPUT_PHONE
     };
 
     delay(function(){
