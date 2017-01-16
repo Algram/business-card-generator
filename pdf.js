@@ -10,7 +10,7 @@ function generate(data, cb) {
   });
 
   let page = doc.page;
-  page.dictionary.data.TrimBox = [8.50392, 8.50392, 240.94512+8.50392, 155.90520+8.50392];
+  page.dictionary.data.TrimBox = [8.50392, 8.50392, 240.94512 + 8.50392, 155.90520 + 8.50392];
   page.dictionary.data.BleedBox = [0, 0, 257.95296, 172.91304];
 
   doc.rect(0, 0, page.width, page.height)
@@ -22,7 +22,7 @@ function generate(data, cb) {
 
   doc.addPage();
   page = doc.page;
-  page.dictionary.data.TrimBox = [8.50392, 8.50392, 240.94512+8.50392, 155.90520+8.50392];
+  page.dictionary.data.TrimBox = [8.50392, 8.50392, 240.94512 + 8.50392, 155.90520 + 8.50392];
   page.dictionary.data.BleedBox = [0, 0, 257.95296, 172.91304];
 
   request(`https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=${data.test}`, (err, response, buffer) => {
