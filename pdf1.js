@@ -20,7 +20,7 @@ function generate(data, cb) {
   doc.lineWidth(3)
     .moveTo(60, 150)
     .lineTo(190, 20)
-    .fillAndStroke([25, 100, 100, 5], [25, 100, 100, 5])
+    .fillAndStroke(data.color || [25, 100, 100, 5], data.color || [25, 100, 100, 5])
     .stroke();
 
   doc.fillColor([25, 100, 100, 5])

@@ -24,12 +24,14 @@ function sendToServer(data) {
 
 function getData() {
   var SELECT_DESIGN = $('select').val();
+  var INPUT_COLOR = $('input[name=color]').val();
   var INPUT_NAME = $('input[name=name]').val();
   var INPUT_POSITION = $('input[name=position]').val();
   var INPUT_PHONE = $('input[name=phone]').val();
 
   var data = {
     selectedDesign: SELECT_DESIGN,
+    color: INPUT_COLOR,
     name: INPUT_NAME,
     position: INPUT_POSITION,
     phone: INPUT_PHONE

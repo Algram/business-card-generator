@@ -23,7 +23,7 @@ function generate(data, cb) {
     .fill([0, 0, 0, 0]);
 
   doc.rect(0, page.height / 2, page.width, page.height / 2)
-    .fill([0, 0, 0, 25]);
+    .fill(data.color || [0, 0, 0, 25]);
 
   doc.fillColor([0, 0, 0, 85])
     .fontSize(12)
@@ -49,7 +49,7 @@ function generate(data, cb) {
     .fill([0, 0, 0, 0]);
 
   doc.rect(0, page.height / 2, page.width, page.height / 2)
-    .fill([0, 0, 0, 25]);
+    .fill(data.color || [0, 0, 0, 25]);
 
   request(`https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=${data.test}`, (err, response, buffer) => {
     doc.image(buffer, (doc.page.width - 80) / 2, (doc.page.height - 80) / 2, { width: 80 });

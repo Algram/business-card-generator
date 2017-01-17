@@ -1,6 +1,7 @@
 const path = require('path');
 const Hapi = require('hapi');
 const Inert = require('inert');
+const convert = require('color-convert');
 const pdf1 = require('./pdf1.js');
 const pdf2 = require('./pdf2.js');
 
@@ -40,6 +41,7 @@ server.route({
   path: '/generate',
   handler: (request, reply) => {
     const data = request.payload;
+    data.color = convert.rgb.cmyk(convert.hex.rgb(data.color));
 
     if (data.selectedDesign == 1) {
       pdf1.generate(data, () => reply());
