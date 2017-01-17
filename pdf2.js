@@ -6,12 +6,7 @@ function generate(data, cb) {
   const doc = new PDFDocument({
     layout: 'landscape',
     size: [172.91304, 257.95296],
-    margins: {
-      top: 20,
-      bottom: 10,
-      left: 20,
-      right: 20
-    }
+    margin: 5
   });
 
   let page = doc.page;
@@ -30,7 +25,7 @@ function generate(data, cb) {
 
   doc.fillColor(data.color)
     .fontSize(12)
-    .text(data.name, { lineGap: -2 })
+    .text(data.name, 20, 20, { lineGap: -2 })
     .font('fonts/Overpass/Overpass-Light.ttf')
     .fontSize(10)
     .fillColor([0, 0, 0, 85])
@@ -51,8 +46,20 @@ function generate(data, cb) {
   page.dictionary.data.TrimBox = [8.50392, 8.50392, 240.94512 + 8.50392, 155.90520 + 8.50392];
   page.dictionary.data.BleedBox = [0, 0, 257.95296, 172.91304];
 
+  doc.lineWidth(3)
+    .moveTo(32, 122)
+    .lineTo(102, 52)
+    .fillAndStroke(data.color, data.color)
+    .stroke();
+
+  doc.fillColor([0, 0, 0, 85])
+    .font('fonts/Overpass/Overpass-Bold.ttf')
+    .fontSize(48)
+    .text(data.name.split(' ')[0][0], 30, 30)
+    .text(data.name.split(' ')[1] !== undefined ? data.name.split(' ')[1][0] : '', 75, 75);
+
   request(`https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=${data.name}`, (err, response, buffer) => {
-    doc.image(buffer, (doc.page.width - 80) / 2, (doc.page.height - 80) / 2, { width: 80 });
+    doc.image(buffer, (doc.page.width - 110), (doc.page.height - 80) / 2, { width: 80 });
     doc.end();
     setTimeout(() => {
       cb();
