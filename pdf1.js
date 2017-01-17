@@ -26,7 +26,7 @@ function generate(data, cb) {
   doc.fillColor([25, 100, 100, 5])
     .text(data.name)
     .fillColor([0, 0, 0, 85])
-    .text(data.phone);
+    .text(data.position);
 
   doc.addPage();
   page = doc.page;

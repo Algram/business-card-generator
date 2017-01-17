@@ -1,7 +1,8 @@
 const path = require('path');
 const Hapi = require('hapi');
 const Inert = require('inert');
-const pdf = require('./pdf.js');
+const pdf1 = require('./pdf1.js');
+const pdf2 = require('./pdf2.js');
 
 // Create a server with a host and port
 const server = new Hapi.Server({
@@ -39,7 +40,12 @@ server.route({
   path: '/generate',
   handler: (request, reply) => {
     const data = request.payload;
-    pdf.generate(data, () => reply());
+
+    if (data.selectedDesign == 1) {
+      pdf1.generate(data, () => reply());
+    } else if (data.selectedDesign == 2) {
+      pdf2.generate(data, () => reply());
+    }
   }
 });
 
