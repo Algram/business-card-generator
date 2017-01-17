@@ -3,7 +3,7 @@ $( document ).ready(function() {
   init();
 
   var typingTimer;
-  $('input').on('keydown paste input', function() {
+  $('input').on('paste input', function() {
     var data = getData();
 
     delay(function(){
@@ -39,7 +39,9 @@ function init() {
       $('input[name='+key+']').val(defaultData[key]);
   }
 
-  sendToServer(defaultData);
+  delay(function(){
+     sendToServer(defaultData);
+   }, 200 );
 }
 
 function sendToServer(data) {
