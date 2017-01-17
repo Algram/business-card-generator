@@ -1,5 +1,14 @@
 /* eslint-disable */
 $( document ).ready(function() {
+  sendToServer({
+    selectedDesign: 1,
+    color: colorDesign,
+    name: 'John Doe',
+    position: 'Chief Executive',
+    phone: '+92 217 238 112'
+  });
+
+  var colorDesign = '#BFBFBF';
   var selectedDesign = 1;
   var typingTimer;
   $('input').on('keydown paste input', function() {
