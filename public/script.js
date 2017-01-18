@@ -23,6 +23,11 @@ $( document ).ready(function() {
     var data = getData();
     sendToServer(data);
   });
+
+  var adressCombined = 'Lohrtalweg 40 Mosbach';
+  $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + adressCombined + '&key=AIzaSyC_zK9z0M8CUJagi2RliAFXooeW7yfXKEQ', function(data) {
+    console.log(data);
+  });
 });
 
 function init() {

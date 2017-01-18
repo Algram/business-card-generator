@@ -120,6 +120,18 @@
         </div>
     </div>
 
+    <div id="map" height="100%"></div>
+    <script>
+      var map;
+      function initMap() {
+        console.log('asdasd',  document.getElementById('map'));
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }
+    </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_zK9z0M8CUJagi2RliAFXooeW7yfXKEQ&callback=initMap"></script>
     <script src="script.js"></script>
 </body>
 
