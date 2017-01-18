@@ -63,7 +63,7 @@ function generate(data, cb) {
     doc.end();
     setTimeout(() => {
       cb();
-    }, 100);
+    }, 200);
   });
 
   doc.pipe(fs.createWriteStream('public/businesscard.pdf'));

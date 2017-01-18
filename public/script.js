@@ -31,7 +31,11 @@ function init() {
     color: '#BFBFBF',
     name: 'John Doe',
     position: 'Chief Executive',
-    phone: '+92 217 238 112'
+    street: 'Lohrtalweg 10',
+    city: '74821 Mosbach',
+    phone: '+92 217 238 112',
+    email: 'john.doe@mail.com',
+    url: 'doe.com'
   };
 
   for(key in defaultData) {
@@ -55,14 +59,22 @@ function getData() {
   var INPUT_COLOR = $('input[name=color]').val();
   var INPUT_NAME = $('input[name=name]').val();
   var INPUT_POSITION = $('input[name=position]').val();
+  var INPUT_STREET = $('input[name=street]').val();
+  var INPUT_CITY = $('input[name=city]').val();
   var INPUT_PHONE = $('input[name=phone]').val();
+  var INPUT_EMAIL = $('input[name=email]').val();
+  var INPUT_URL = $('input[name=url]').val();
 
   var data = {
     selectedDesign: SELECT_DESIGN,
     color: INPUT_COLOR,
     name: INPUT_NAME,
     position: INPUT_POSITION,
-    phone: INPUT_PHONE
+    street: INPUT_STREET,
+    city: INPUT_CITY,
+    phone: INPUT_PHONE,
+    email: INPUT_EMAIL,
+    url: INPUT_URL
   };
 
   return data;

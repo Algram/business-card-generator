@@ -59,7 +59,9 @@ function generate(data, cb) {
       .stroke([0, 0, 0, 85]);
 
     doc.end();
-    cb();
+    setTimeout(() => {
+      cb();
+    }, 200);
   });
 
   doc.pipe(fs.createWriteStream('public/businesscard.pdf'));
