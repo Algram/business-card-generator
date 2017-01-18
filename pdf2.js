@@ -34,10 +34,127 @@ function generate(data, cb) {
   doc.fillColor([0, 0, 0, 85])
     .font('fonts/Overpass/Overpass-Light.ttf')
     .fontSize(10)
-    .text(data.street, 40, 105, { width: 200, lineGap: -3, align: 'right' })
+    .text(data.street, 35, 105, { width: 200, lineGap: -3, align: 'right' })
     .text(data.city, { width: 200, lineGap: -3, align: 'right' })
     .text(data.phone, { width: 200, lineGap: -3, align: 'right' })
     .text(data.email, { width: 200, lineGap: -3, align: 'right' });
+
+
+  /* Ab hier weiße Schnittmarken */
+  /* Schnittmarke lovw */
+  doc.lineWidth(1.5)
+    .moveTo(8.50392, 0)
+    .lineTo(8.50392, 5.6692944)
+    .fillAndStroke([0, 0, 0, 0])
+    .stroke();
+
+  /* Schnittmarke luvw */
+  doc.lineWidth(1.5)
+    .moveTo(8.50392, 167.24376)
+    .lineTo(8.50392, 172.91304)
+    .fillAndStroke([0, 0, 0, 0])
+    .stroke();
+
+  /* Schnittmarke ruvw */
+  doc.lineWidth(1.5)
+    .moveTo(249.44904, 167.24376)
+    .lineTo(249.44904, 172.91304)
+    .fillAndStroke([0, 0, 0, 0])
+    .stroke();
+
+  /* Schnittmarke rovw */
+  doc.lineWidth(1.5)
+    .moveTo(249.44904, 0)
+    .lineTo(249.44904, 5.6692944)
+    .fillAndStroke([0, 0, 0, 0])
+    .stroke();
+
+  /* Schnittmarke lohw */
+  doc.lineWidth(1.5)
+    .moveTo(0, 8.50392)
+    .lineTo(5.6692944, 8.50392)
+    .fillAndStroke([0, 0, 0, 0])
+    .stroke();
+
+  /* Schnittmarke luhw */
+  doc.lineWidth(1.5)
+    .moveTo(0, 164.40912)
+    .lineTo(5.6692944, 164.40912)
+    .fillAndStroke([0, 0, 0, 0])
+    .stroke();
+
+  /* Schnittmarke ruhw */
+  doc.lineWidth(1.5)
+    .moveTo(252.28368, 164.40912)
+    .lineTo(257.95296, 164.40912)
+    .fillAndStroke([0, 0, 0, 0])
+    .stroke();
+
+  /* Schnittmarke rohw */
+  doc.lineWidth(1.5)
+    .moveTo(252.28368, 8.50392)
+    .lineTo(257.95296, 8.50392)
+    .fillAndStroke([0, 0, 0, 0])
+    .stroke();
+
+
+  /* Ab hier schwarze Schnittmarken */
+  /* Schnittmarke lovs */
+  doc.lineWidth(0.5)
+    .moveTo(8.50392, 0)
+    .lineTo(8.50392, 5.6692944)
+    .fillAndStroke([100, 100, 100, 100])
+    .stroke();
+
+  /* Schnittmarke luvs */
+  doc.lineWidth(0.5)
+    .moveTo(8.50392, 167.24376)
+    .lineTo(8.50392, 172.91304)
+    .fillAndStroke([100, 100, 100, 100])
+    .stroke();
+
+  /* Schnittmarke ruvs */
+  doc.lineWidth(0.5)
+    .moveTo(249.44904, 167.24376)
+    .lineTo(249.44904, 172.91304)
+    .fillAndStroke([100, 100, 100, 100])
+    .stroke();
+
+  /* Schnittmarke rovs */
+  doc.lineWidth(0.5)
+    .moveTo(249.44904, 0)
+    .lineTo(249.44904, 5.6692944)
+    .fillAndStroke([100, 100, 100, 100])
+    .stroke();
+
+  /* Schnittmarke lohs */
+  doc.lineWidth(0.5)
+    .moveTo(0, 8.50392)
+    .lineTo(5.6692944, 8.50392)
+    .fillAndStroke([100, 100, 100, 100])
+    .stroke();
+
+  /* Schnittmarke luhs */
+  doc.lineWidth(0.5)
+    .moveTo(0, 164.40912)
+    .lineTo(5.6692944, 164.40912)
+    .fillAndStroke([100, 100, 100, 100])
+    .stroke();
+
+  /* Schnittmarke ruhs */
+  doc.lineWidth(0.5)
+    .moveTo(252.28368, 164.40912)
+    .lineTo(257.95296, 164.40912)
+    .fillAndStroke([100, 100, 100, 100])
+    .stroke();
+
+  /* Schnittmarke rohs */
+  doc.lineWidth(0.5)
+    .moveTo(252.28368, 8.50392)
+    .lineTo(257.95296, 8.50392)
+    .fillAndStroke([100, 100, 100, 100])
+    .stroke();
+
 
   doc.addPage();
   page = doc.page;
