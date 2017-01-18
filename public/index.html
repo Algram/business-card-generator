@@ -50,8 +50,8 @@
                 <h1>Visitenkarte</h1>
                 <hr>
                 <div class="form-group row">
-                    <div class="col-sm-11">
-                        <select name="list">
+                    <div class="col-sm-10">
+                        <select name="design">
                             <option value="1">
                                 <h3>Design1</h3>
                             </option>
@@ -60,8 +60,8 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-sm-1">
-                      <input type="color" name="color">
+                    <div class="col-sm-2">
+                      <input class="form-control" type="color" name="color">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -112,6 +112,29 @@
                         <input type="file" name="DATEI" class="filestyle" data-buttonText="Logo hochladen" data-size="lg" data-placeholder="Logo ...">
                     </div>
                 </div>
+                <hr>
+                <div class="row text-center">
+                  <div class="col-sm-12">
+                      <label class="col-form-label" for="qrcode">QR Code Art auswählen:</label>
+                      <select name="qrcode" class="btm-pad">
+                          <option value="1">
+                              <h3>Geo</h3>
+                          </option>
+                          <option value="2" selected="selected">
+                              <h3>Text</h3>
+                          </option>
+                          <option value="3">
+                              <h3>V-Card</h3>
+                          </option>
+                      </select>
+                      <input class="form-control" type="text" name="qrcode" placeholder="QR Code beschreiben...">
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div id="map" height="1000" width="500">asd</div>
+                </div>
+              </div>
             </form>
             <hr>
         </div>
@@ -119,19 +142,7 @@
             <iframe id="pdfView" src="" width="480" height="600"></iframe>
         </div>
     </div>
-
-    <div id="map" height="100%"></div>
-    <script>
-      var map;
-      function initMap() {
-        console.log('asdasd',  document.getElementById('map'));2
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        });
-      }
-    </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_zK9z0M8CUJagi2RliAFXooeW7yfXKEQ&callback=initMap"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_zK9z0M8CUJagi2RliAFXooeW7yfXKEQ"></script>
     <script src="script.js"></script>
 </body>
 

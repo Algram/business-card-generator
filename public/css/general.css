@@ -62,3 +62,7 @@ select > option > h3 {
 #pdfView {
 	border: none;
 }
+
+#map {
+	height: 400px; width: 100%;
+}

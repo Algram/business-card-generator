@@ -11,7 +11,7 @@ $( document ).ready(function() {
      }, 1000 );
   });
 
-  $('select').on('change', function() {
+  $('select[name=design]').on('change', function() {
     if ($(this).val() == 1) {
       colorDesign = '#BFBFBF';
       $('input[name=color]').val(colorDesign);
@@ -24,9 +24,35 @@ $( document ).ready(function() {
     sendToServer(data);
   });
 
-  var adressCombined = 'Lohrtalweg 40 Mosbach';
+  var location;
+  var adressCombined = 'Berlin';
   $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + adressCombined + '&key=AIzaSyC_zK9z0M8CUJagi2RliAFXooeW7yfXKEQ', function(data) {
     console.log(data);
+    location = data.results[0].geometry.location;
+  });
+
+  $('input[name=qrcode]').on('paste input', function() {
+    delay(function(){
+      var data = getData();
+
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: location,
+        zoom: 14
+      });
+
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map
+      });
+
+      sendToServer(data);
+    }, 1000 );
+  });
+
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 14
   });
 });
 
