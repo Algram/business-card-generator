@@ -1,4 +1,6 @@
 /* eslint-disable */
+var adressCombined;
+
 $( document ).ready(function() {
   init();
 
@@ -25,16 +27,43 @@ $( document ).ready(function() {
   });
 
   var location;
-  var adressCombined = 'Berlin';
   $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + adressCombined + '&key=AIzaSyC_zK9z0M8CUJagi2RliAFXooeW7yfXKEQ', function(data) {
     console.log(data);
     location = data.results[0].geometry.location;
   });
 
   $('input[name=qrcode]').on('paste input', function() {
-    delay(function(){
-      var data = getData();
+    adressCombined = $(this).val();
 
+    delay(function(){
+      $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + adressCombined + '&key=AIzaSyC_zK9z0M8CUJagi2RliAFXooeW7yfXKEQ', function(data) {
+        console.log(data);
+        location = data.results[0].geometry.location;
+
+        var data = getData();
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: location,
+          zoom: 14
+        });
+
+        var marker = new google.maps.Marker({
+          position: location,
+          map: map
+        });
+
+        sendToServer(data);
+      });
+    }, 1000 );
+  });
+
+
+  // Init Map
+  $('select[name=qrcode]').on('change', function() {
+    if ($(this).val() == 'geolocation') {
+      $('input[name=qrcode]').val(adressCombined);
+      console.log(adressCombined);
+      $('#map').show()
       var map = new google.maps.Map(document.getElementById('map'), {
         center: location,
         zoom: 14
@@ -44,15 +73,12 @@ $( document ).ready(function() {
         position: location,
         map: map
       });
+    } else {
+      $('#map').hide()
+    }
 
-      sendToServer(data);
-    }, 1000 );
-  });
-
-
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 14
+    var data = getData();
+    sendToServer(data);
   });
 });
 
@@ -68,6 +94,8 @@ function init() {
     email: 'john.doe@mail.com',
     url: 'doe.com'
   };
+
+  adressCombined = defaultData.street + ', ' + defaultData.city;
 
   for(key in defaultData) {
     if(defaultData.hasOwnProperty(key))
@@ -107,6 +135,9 @@ function getData() {
     email: INPUT_EMAIL,
     url: INPUT_URL
   };
+
+  adressCombined = data.street + ', ' + data.city;
+  $('input[name=qrcode]').val(adressCombined);
 
   return data;
 }
