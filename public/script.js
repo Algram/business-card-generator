@@ -31,12 +31,13 @@ $( document ).ready(function() {
   // Init Map
   $('select[name=qrcode]').on('change', function() {
     if ($(this).val() === 'geolocation') {
-      $('#map').show()
+      console.log('asdasdds');
+      $('#map').show();
       $('input[name=qrcode]').hide();
     } else if ($(this).val() === 'vcard') {
       $('input[name=qrcode]').hide();
     } else {
-      $('#map').hide()
+      $('#map').hide();
       $('input[name=qrcode]').show();
     }
 
@@ -72,7 +73,8 @@ function init() {
     city: '74821 Mosbach',
     phone: '+92 217 238 112',
     email: 'john.doe@mail.com',
-    url: 'doe.com'
+    url: 'doe.com',
+    qrcode: 'Example QR Code Content'
   };
 
   adressCombined = defaultData.street + ', ' + defaultData.city;
@@ -105,11 +107,18 @@ function sendToServer() {
     });
   } else {
     if (selQrCodeType === 'geolocation') {
+      updateMap(data.adressCombined, function() {});
       data.qrcode = prevQrCode;
     }
 
     if (selQrCodeType === 'vcard') {
-      data.qrcode = $('input[name=qrcode]').val();
+      data.qrcode = 'BEGIN:VCARD%0A' +
+        'N:' + data.name + '%0A' +
+        'TEL;WORK:' + data.phone + '%0A' +
+        'EMAIL:' + data.email + '%0A' +
+        'TITLE:' + data.position + '%0A' +
+        'ADR;WORK:;;' + data.street + ';' + data.city + ';%0A' +
+        'END:VCARD'
     }
 
     if (selQrCodeType === 'text') {
