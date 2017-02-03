@@ -4,11 +4,8 @@ $( document ).ready(function() {
 
   var typingTimer;
   $('input').on('paste input', function() {
-    var data = getData();
-
     delay(function(){
-      updateMap(data.adressCombined);
-      sendToServer(data);
+      sendToServer();
     }, 1000 );
   });
 
@@ -21,39 +18,33 @@ $( document ).ready(function() {
       $('input[name=color]').val(colorDesign);
     }
 
-    var data = getData();
-    sendToServer(data);
+    sendToServer();
   });
 
   $('input[name=qrcode]').on('paste input', function() {
     delay(function(){
-      var data = getData();
-
-      updateMap(data.adressCombined);
-
-      sendToServer(data);
+      sendToServer();
     }, 1000 );
   });
 
 
   // Init Map
   $('select[name=qrcode]').on('change', function() {
-    var data = getData();
-
-    if ($(this).val() == 'geolocation') {
-      updateMap(data.adressCombined);
+    if ($(this).val() === 'geolocation') {
       $('#map').show()
+      $('input[name=qrcode]').hide();
+    } else if ($(this).val() === 'vcard') {
       $('input[name=qrcode]').hide();
     } else {
       $('#map').hide()
       $('input[name=qrcode]').show();
     }
 
-    sendToServer(data);
+    sendToServer();
   });
 });
 
-function updateMap(adressCombined) {
+function updateMap(adressCombined, cb) {
   $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + adressCombined + '&key=AIzaSyC_zK9z0M8CUJagi2RliAFXooeW7yfXKEQ', function(data) {
     var location = data.results[0].geometry.location;
 
@@ -66,6 +57,8 @@ function updateMap(adressCombined) {
       position: location,
       map: map
     });
+
+    cb(location);
   });
 }
 
@@ -90,14 +83,33 @@ function init() {
   }
 
   delay(function(){
-     sendToServer(defaultData);
+    $.post( "/generate", defaultData, function( data ) {
+      $('#pdfView').attr('src', 'businesscard.pdf');
+    });
    }, 200 );
 }
 
-function sendToServer(data) {
-  $.post( "/generate", data, function( data ) {
-    $('#pdfView').attr('src', 'businesscard.pdf');
-  });
+var prevAdressCombined;
+var prevQrCode;
+function sendToServer() {
+  var data = getData();
+
+  if (prevAdressCombined !== data.adressCombined) {
+    updateMap(data.adressCombined, function(location) {
+      data.qrcode = 'http://maps.google.com/maps?q=' + location.lat + ',' + location.lng;
+      prevQrCode = data.qrcode;
+      $.post( "/generate", data, function( data ) {
+        $('#pdfView').attr('src', 'businesscard.pdf');
+      });
+    });
+  } else {
+    data.qrcode = prevQrCode;
+    $.post( "/generate", data, function( data ) {
+      $('#pdfView').attr('src', 'businesscard.pdf');
+    });
+  }
+
+  prevAdressCombined = data.adressCombined;
 }
 
 function getData() {

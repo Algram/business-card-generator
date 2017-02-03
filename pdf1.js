@@ -166,7 +166,7 @@ function generate(data, cb) {
   doc.rect(0, page.height / 2, page.width, page.height / 2)
     .fill(data.color);
 
-  request(`https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=${data.name}`, (err, response, buffer) => {
+  request(`https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=${data.qrcode}`, (err, response, buffer) => {
     doc.image(buffer, (doc.page.width - 80) / 2, (doc.page.height - 80) / 2, { width: 80 });
 
     doc.rect((doc.page.width - 80) / 2, (doc.page.height - 80) / 2, 80, 80)

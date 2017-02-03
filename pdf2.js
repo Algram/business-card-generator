@@ -175,7 +175,7 @@ function generate(data, cb) {
     .text(data.name.split(' ')[0][0], 30, 30)
     .text(data.name.split(' ')[1] !== undefined ? data.name.split(' ')[1][0] : '', 75, 75);
 
-  request(`https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=${data.name}`, (err, response, buffer) => {
+  request(`https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=${data.qrcode}`, (err, response, buffer) => {
     doc.image(buffer, (doc.page.width - 110), (doc.page.height - 80) / 2, { width: 80 });
 
 
