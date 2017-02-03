@@ -2,6 +2,16 @@ const fs = require('fs');
 const request = require('request').defaults({ encoding: null });
 const PDFDocument = require('pdfkit');
 
+
+function fsExistsSync(myDir) {
+  try {
+    fs.accessSync(myDir);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 function generate(data, cb) {
   const doc = new PDFDocument({
     layout: 'landscape',
@@ -39,6 +49,10 @@ function generate(data, cb) {
     .text(data.phone, { width: 200, lineGap: -3, align: 'right' })
     .text(data.email, { width: 200, lineGap: -3, align: 'right' });
 
+
+  if (fsExistsSync('public/logo.jpg')) {
+    doc.image('public/logo.jpg', 20, 54, { width: 35 });
+  }
 
   /* Ab hier weiße Schnittmarken */
   /* Schnittmarke lovw */

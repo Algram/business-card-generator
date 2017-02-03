@@ -62,11 +62,11 @@ server.route({
       parse: true
     },
     handler(request, reply) {
-      let fileExtension = request.payload.image.hapi.filename;
-      fileExtension = fileExtension.split('.');
-      fileExtension = fileExtension[fileExtension.length - 1];
+      // let fileExtension = request.payload.image.hapi.filename;
+      // fileExtension = fileExtension.split('.');
+      // fileExtension = fileExtension[fileExtension.length - 1];
 
-      request.payload.image.pipe(fs.createWriteStream(`logo.${fileExtension}`));
+      request.payload.image.pipe(fs.createWriteStream('public/logo.jpg'));
       reply();
     }
   }

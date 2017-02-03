@@ -2,6 +2,16 @@ const fs = require('fs');
 const request = require('request').defaults({ encoding: null });
 const PDFDocument = require('pdfkit');
 
+
+function fsExistsSync(myDir) {
+  try {
+    fs.accessSync(myDir);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 function generate(data, cb) {
   const doc = new PDFDocument({
     layout: 'landscape',
@@ -166,10 +176,14 @@ function generate(data, cb) {
   doc.rect(0, page.height / 2, page.width, page.height / 2)
     .fill(data.color);
 
-  request(`https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=${data.qrcode}`, (err, response, buffer) => {
-    doc.image(buffer, (doc.page.width - 80) / 2, (doc.page.height - 80) / 2, { width: 80 });
+  if (fsExistsSync('public/logo.jpg')) {
+    doc.image('public/logo.jpg', (doc.page.width - 35) / 2, 18, { width: 35 });
+  }
 
-    doc.rect((doc.page.width - 80) / 2, (doc.page.height - 80) / 2, 80, 80)
+  request(`https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=${data.qrcode}`, (err, response, buffer) => {
+    doc.image(buffer, (doc.page.width - 80) / 2, (doc.page.height - 50) / 2, { width: 80 });
+
+    doc.rect((doc.page.width - 80) / 2, (doc.page.height - 50) / 2, 80, 80)
       .lineWidth(3)
       .stroke([0, 0, 0, 85]);
 
