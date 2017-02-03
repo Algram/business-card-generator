@@ -1,6 +1,4 @@
 /* eslint-disable */
-var adressCombined;
-
 $( document ).ready(function() {
   init();
 
@@ -9,8 +7,9 @@ $( document ).ready(function() {
     var data = getData();
 
     delay(function(){
-       sendToServer(data);
-     }, 1000 );
+      updateMap(data.adressCombined);
+      sendToServer(data);
+    }, 1000 );
   });
 
   $('select[name=design]').on('change', function() {
@@ -26,61 +25,49 @@ $( document ).ready(function() {
     sendToServer(data);
   });
 
-  var location;
-  $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + adressCombined + '&key=AIzaSyC_zK9z0M8CUJagi2RliAFXooeW7yfXKEQ', function(data) {
-    console.log(data);
-    location = data.results[0].geometry.location;
-  });
-
   $('input[name=qrcode]').on('paste input', function() {
-    adressCombined = $(this).val();
-
     delay(function(){
-      $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + adressCombined + '&key=AIzaSyC_zK9z0M8CUJagi2RliAFXooeW7yfXKEQ', function(data) {
-        console.log(data);
-        location = data.results[0].geometry.location;
+      var data = getData();
 
-        var data = getData();
+      updateMap(data.adressCombined);
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: location,
-          zoom: 14
-        });
-
-        var marker = new google.maps.Marker({
-          position: location,
-          map: map
-        });
-
-        sendToServer(data);
-      });
+      sendToServer(data);
     }, 1000 );
   });
 
 
   // Init Map
   $('select[name=qrcode]').on('change', function() {
-    if ($(this).val() == 'geolocation') {
-      $('input[name=qrcode]').val(adressCombined);
-      console.log(adressCombined);
-      $('#map').show()
-      var map = new google.maps.Map(document.getElementById('map'), {
-        center: location,
-        zoom: 14
-      });
+    var data = getData();
 
-      var marker = new google.maps.Marker({
-        position: location,
-        map: map
-      });
+    if ($(this).val() == 'geolocation') {
+      updateMap(data.adressCombined);
+      $('#map').show()
+      $('input[name=qrcode]').hide();
     } else {
       $('#map').hide()
+      $('input[name=qrcode]').show();
     }
 
-    var data = getData();
     sendToServer(data);
   });
 });
+
+function updateMap(adressCombined) {
+  $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + adressCombined + '&key=AIzaSyC_zK9z0M8CUJagi2RliAFXooeW7yfXKEQ', function(data) {
+    var location = data.results[0].geometry.location;
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: location,
+      zoom: 14
+    });
+
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map
+    });
+  });
+}
 
 function init() {
   var defaultData = {
@@ -133,11 +120,9 @@ function getData() {
     city: INPUT_CITY,
     phone: INPUT_PHONE,
     email: INPUT_EMAIL,
-    url: INPUT_URL
+    url: INPUT_URL,
+    adressCombined: INPUT_STREET + ', ' + INPUT_CITY
   };
-
-  adressCombined = data.street + ', ' + data.city;
-  $('input[name=qrcode]').val(adressCombined);
 
   return data;
 }
