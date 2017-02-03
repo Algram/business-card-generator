@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const Hapi = require('hapi');
 const Inert = require('inert');
@@ -47,6 +48,26 @@ server.route({
       pdf1.generate(data, () => reply());
     } else if (data.selectedDesign == 2) {
       pdf2.generate(data, () => reply());
+    }
+  }
+});
+
+server.route({
+  method: 'POST',
+  path: '/upload',
+  config: {
+    payload: {
+      maxBytes: 209715200,
+      output: 'stream',
+      parse: true
+    },
+    handler(request, reply) {
+      let fileExtension = request.payload.image.hapi.filename;
+      fileExtension = fileExtension.split('.');
+      fileExtension = fileExtension[fileExtension.length - 1];
+
+      request.payload.image.pipe(fs.createWriteStream(`logo.${fileExtension}`));
+      reply();
     }
   }
 });

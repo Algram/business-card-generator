@@ -27,6 +27,29 @@ $( document ).ready(function() {
     }, 1000 );
   });
 
+  $('input[name=file]').on('change', function() {
+    var formData = new FormData();
+    formData.append('image', $('input[type=file]')[0].files[0]);
+    console.log(formData.get('image'));
+
+    $.ajax({
+    url: '/upload',
+    data: formData,
+    type: 'POST',
+    // THIS MUST BE DONE FOR FILE UPLOADING
+    contentType: false,
+    processData: false,
+    success: function(res) {
+      console.log('asdasd', res);
+    }
+    // ... Other options like success and etc
+    })
+
+    delay(function(){
+      sendToServer();
+    }, 1000 );
+  });
+
 
   // Init Map
   $('select[name=qrcode]').on('change', function() {
