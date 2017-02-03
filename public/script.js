@@ -92,9 +92,10 @@ function init() {
 var prevAdressCombined;
 var prevQrCode;
 function sendToServer() {
+  var selQrCodeType = $('select[name=qrcode]').val();
   var data = getData();
 
-  if (prevAdressCombined !== data.adressCombined) {
+  if ((prevAdressCombined !== data.adressCombined) && selQrCodeType === 'geolocation') {
     updateMap(data.adressCombined, function(location) {
       data.qrcode = 'http://maps.google.com/maps?q=' + location.lat + ',' + location.lng;
       prevQrCode = data.qrcode;
@@ -103,7 +104,18 @@ function sendToServer() {
       });
     });
   } else {
-    data.qrcode = prevQrCode;
+    if (selQrCodeType === 'geolocation') {
+      data.qrcode = prevQrCode;
+    }
+
+    if (selQrCodeType === 'vcard') {
+      data.qrcode = $('input[name=qrcode]').val();
+    }
+
+    if (selQrCodeType === 'text') {
+      data.qrcode = $('input[name=qrcode]').val();
+    }
+
     $.post( "/generate", data, function( data ) {
       $('#pdfView').attr('src', 'businesscard.pdf');
     });
