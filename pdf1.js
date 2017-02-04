@@ -28,7 +28,7 @@ function generate(data, cb) {
   page.dictionary.data.TrimBox = [8.50392, 8.50392, 240.94512 + 8.50392, 155.90520 + 8.50392];
   page.dictionary.data.BleedBox = [0, 0, 257.95296, 172.91304];
 
-  doc.font('fonts/Overpass/Overpass-Regular.ttf');
+  doc.font(`fonts/${data.font}-regular.ttf`);
   doc.rect(0, 0, page.width, page.height)
     .fill([0, 0, 0, 0]);
 
@@ -38,12 +38,12 @@ function generate(data, cb) {
   doc.fillColor([0, 0, 0, 85])
     .fontSize(12)
     .text(data.name.toUpperCase(), 35, 50, { width: 200, align: 'right', lineGap: -2 })
-    .font('fonts/Overpass/Overpass-Light.ttf')
+    .font(`fonts/${data.font}-light.ttf`)
     .fontSize(10)
     .text(data.position, { width: 200, align: 'right' });
 
   doc.fillColor([0, 0, 0, 85])
-    .font('fonts/Overpass/Overpass-Light.ttf')
+    .font(`fonts/${data.font}-light.ttf`)
     .fontSize(10)
     .text(data.street, 20, 105, { width: 200, lineGap: -3 })
     .text(data.city, { width: 200, lineGap: -3 })

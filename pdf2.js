@@ -23,7 +23,7 @@ function generate(data, cb) {
   page.dictionary.data.TrimBox = [8.50392, 8.50392, 240.94512 + 8.50392, 155.90520 + 8.50392];
   page.dictionary.data.BleedBox = [0, 0, 257.95296, 172.91304];
 
-  doc.font('fonts/Overpass/Overpass-Regular.ttf');
+  doc.font(`fonts/${data.font}-regular.ttf`);
   doc.rect(0, 0, page.width, page.height)
     .fill([0, 0, 0, 0]);
 
@@ -36,13 +36,13 @@ function generate(data, cb) {
   doc.fillColor(data.color)
     .fontSize(12)
     .text(data.name, 20, 20, { lineGap: -2 })
-    .font('fonts/Overpass/Overpass-Light.ttf')
+    .font(`fonts/${data.font}-light.ttf`)
     .fontSize(10)
     .fillColor([0, 0, 0, 85])
     .text(data.position);
 
   doc.fillColor([0, 0, 0, 85])
-    .font('fonts/Overpass/Overpass-Light.ttf')
+    .font(`fonts/${data.font}-light.ttf`)
     .fontSize(10)
     .text(data.street, 35, 105, { width: 200, lineGap: -3, align: 'right' })
     .text(data.city, { width: 200, lineGap: -3, align: 'right' })
@@ -184,7 +184,7 @@ function generate(data, cb) {
     .stroke();
 
   doc.fillColor([0, 0, 0, 85])
-    .font('fonts/Overpass/Overpass-Bold.ttf')
+    .font(`fonts/${data.font}-bold.ttf`)
     .fontSize(48)
     .text(data.name.split(' ')[0][0], 30, 30)
     .text(data.name.split(' ')[1] !== undefined ? data.name.split(' ')[1][0] : '', 75, 75);

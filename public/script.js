@@ -21,6 +21,10 @@ $( document ).ready(function() {
     sendToServer();
   });
 
+  $('select[name=font]').on('change', function() {
+    sendToServer();
+  });
+
   $('input[name=qrcode]').on('paste input', function() {
     delay(function(){
       sendToServer();
@@ -94,7 +98,8 @@ function init() {
     phone: '+92 217 238 112',
     email: 'john.doe@mail.com',
     url: 'doe.com',
-    qrcode: 'Example QR Code Content'
+    qrcode: 'Example QR Code Content',
+    font: 'overpass'
   };
 
   adressCombined = defaultData.street + ', ' + defaultData.city;
@@ -154,7 +159,8 @@ function sendToServer() {
 }
 
 function getData() {
-  var SELECT_DESIGN = $('select').val();
+  var SELECT_DESIGN = $('select[name=design]').val();
+  var SELECT_FONT = $('select[name=font]').val();
   var INPUT_COLOR = $('input[name=color]').val();
   var INPUT_NAME = $('input[name=name]').val();
   var INPUT_POSITION = $('input[name=position]').val();
@@ -174,7 +180,8 @@ function getData() {
     phone: INPUT_PHONE,
     email: INPUT_EMAIL,
     url: INPUT_URL,
-    adressCombined: INPUT_STREET + ', ' + INPUT_CITY
+    adressCombined: INPUT_STREET + ', ' + INPUT_CITY,
+    font: SELECT_FONT
   };
 
   return data;
